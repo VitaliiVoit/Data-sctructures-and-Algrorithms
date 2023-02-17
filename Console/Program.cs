@@ -1,23 +1,18 @@
 ﻿using DataStructures.LinkedLists;
 using DataStructures.Node;
 
-var linkedList = new SingleLinkedList<int>();
+DataStructures.Stack<int> stack = new DataStructures.Stack<int>(Enumerable.Range(1, 5));
 
+stack.Push(2);
+stack.Push(4);
+stack.Push(1);
 
-linkedList.AddAtFront(1);
-linkedList.AddAtEnd(5);
-linkedList.AddAtEnd(3);
+stack.Pop(out int value);
 
-var result = linkedList.Find(7) is null;
-Console.WriteLine("Element is :" + result);
+var result = stack.Find(3);
 
-foreach (var item in linkedList)
-{
-    Console.Write($"{item} -> ");
-}
-Console.WriteLine();
+Console.WriteLine(result is null);
+Console.WriteLine(value);
 
-Console.WriteLine(linkedList);
-
-Console.WriteLine();
+Console.WriteLine(stack);
 Console.ReadLine();
