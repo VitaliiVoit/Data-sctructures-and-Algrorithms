@@ -78,16 +78,12 @@ public sealed class SingleLinkedList<T> : IEnumerable<T>
         return current;
     }
 
-    public void Remove(T data)
+    public bool Remove(T data)
     {
         if (Head is null) throw new NullReferenceException("List is empty");
-        if (!Contains(data)) throw new ArgumentException("Don't have such element");
+        if (!Contains(data)) return false;
 
-        if (Head.Data.Equals(data)) 
-        {
-            RemoveFirst();
-            return;
-        }
+        if (Head.Data.Equals(data)) return RemoveFirst();
 
         var current = Head;
         while (current.Next is not null && !current.Next.Data.Equals(data))
@@ -95,15 +91,17 @@ public sealed class SingleLinkedList<T> : IEnumerable<T>
         var removeNode = current.Next;
         if (removeNode?.Next is null) Tail = current; // Change Tail element
         current.Next = removeNode?.Next;
-        Count--; 
+        Count--;
+        return true;
     }
 
-    public void RemoveFirst()
+    public bool RemoveFirst()
     {
         if (Head is null) throw new NullReferenceException("List is empty");
 
         Head = Head.Next;
         Count--;
+        return true;
     }
 
     public IEnumerator<T> GetEnumerator()
@@ -119,5 +117,10 @@ public sealed class SingleLinkedList<T> : IEnumerable<T>
     IEnumerator IEnumerable.GetEnumerator()
     {
         return GetEnumerator();
+    }
+
+    public override string ToString()
+    {
+        return string.Join(" -> ", this) + " -> ";
     }
 }
