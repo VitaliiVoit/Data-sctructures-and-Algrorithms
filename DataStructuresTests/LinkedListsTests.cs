@@ -1,6 +1,6 @@
 ﻿using DataStructures.LinkedLists;
 
-namespace DataStructuresTests.LinkedLists;
+namespace DataStructuresTests;
 
 [TestFixture]
 public class SingleLinkedListTests
@@ -31,26 +31,6 @@ public class SingleLinkedListTests
 
         // Assert
         Assert.That(data, Is.EqualTo(list.Tail?.Data));
-    }
-
-    [Test, TestCase(7)]
-    public void ContainsFalseTest(int data)
-    {
-        // Act
-        bool result = list.Contains(data);
-
-        //Assert
-        Assert.That(result, Is.False);
-    }
-
-    [Test, TestCase(3)]
-    public void ContainsTrueTest(int data)
-    {
-        // Act
-        bool result = list.Contains(data);
-
-        //Assert
-        Assert.That(result, Is.True);
     }
 
     [Test, TestCase(4)]

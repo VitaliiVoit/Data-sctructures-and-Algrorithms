@@ -4,7 +4,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace DataStructures;
 
-public class Stack<T> : IEnumerable<T>
+public sealed class Stack<T> : IEnumerable<T>
     where T: IComparable<T>, IEquatable<T>
 {
     public Node<T>? Top { get; private set; }
@@ -68,7 +68,19 @@ public class Stack<T> : IEnumerable<T>
         if (Top is null) throw new NullReferenceException("Stack is empty");
 
         value = Top.Data;
-        Top = Top.Next;
+        InternalPop();
+    }
+
+    public void Pop()
+    {
+        if (Top is null) throw new NullReferenceException("Stack is empty");
+
+        InternalPop();
+    }
+
+    private void InternalPop()
+    {
+        Top = Top?.Next;
         Count--;
     }
 

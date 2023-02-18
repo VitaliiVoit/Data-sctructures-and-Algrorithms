@@ -1,18 +1,13 @@
-﻿using DataStructures.LinkedLists;
+﻿using DataStructures;
+using DataStructures.LinkedLists;
 using DataStructures.Node;
 
-DataStructures.Stack<int> stack = new DataStructures.Stack<int>(Enumerable.Range(1, 5));
+DataStructures.Queue<int> queue = new DataStructures.Queue<int>(2);
+queue.Enqueue(1);
+queue.Enqueue(3);
 
-stack.Push(2);
-stack.Push(4);
-stack.Push(1);
+queue.Dequeue(out int _);
 
-stack.Pop(out int value);
-
-var result = stack.Find(3);
-
-Console.WriteLine(result is null);
-Console.WriteLine(value);
-
-Console.WriteLine(stack);
+DataStructures.Queue<int> queue1 = new(Enumerable.Range(1, 5));
+Console.WriteLine(queue1);
 Console.ReadLine();
