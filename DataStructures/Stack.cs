@@ -51,6 +51,10 @@ public sealed class Stack<T> : IEnumerable<T>
         return current;
     }
 
+    /// <summary>
+    /// Add new element to stack
+    /// </summary>
+    /// <param name="data"> some data </param>
     public void Push(T data)
     {
         if (Top is null)
@@ -63,6 +67,11 @@ public sealed class Stack<T> : IEnumerable<T>
         Count++;
     }
 
+    /// <summary>
+    /// Remove element from stack
+    /// </summary>
+    /// <param name="value"> return value </param>
+    /// <exception cref="NullReferenceException"></exception>
     public void Pop(out T value)
     {
         if (Top is null) throw new NullReferenceException("Stack is empty");
@@ -71,6 +80,10 @@ public sealed class Stack<T> : IEnumerable<T>
         InternalPop();
     }
 
+    /// <summary>
+    /// Remove element from stack
+    /// </summary>
+    /// <exception cref="NullReferenceException"></exception>
     public void Pop()
     {
         if (Top is null) throw new NullReferenceException("Stack is empty");
@@ -84,6 +97,11 @@ public sealed class Stack<T> : IEnumerable<T>
         Count--;
     }
 
+    /// <summary>
+    /// Return data from top element in stack
+    /// </summary>
+    /// <returns> top element data </returns>
+    /// <exception cref="NullReferenceException"></exception>
     public T Peek()
     {
         if (Top is null) throw new NullReferenceException("Stack is empty");

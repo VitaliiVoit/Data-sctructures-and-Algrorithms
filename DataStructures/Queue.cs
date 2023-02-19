@@ -3,10 +3,17 @@ using System.Collections;
 
 namespace DataStructures;
 
-public class Queue<T> : IEnumerable<T>
+public sealed class Queue<T> : IEnumerable<T>
     where T : IComparable<T>, IEquatable<T>
 {
+    /// <summary>
+    /// First element
+    /// </summary>
     public Node<T>? Front { get; private set; }
+
+    /// <summary>
+    /// Last element
+    /// </summary>
     public Node<T>? Back { get; private set; }
     public int Count { get; private set; }
 
@@ -14,7 +21,7 @@ public class Queue<T> : IEnumerable<T>
 
     public Queue(T data)
     {
-        SetFront(data);
+        SetFrontAndBack(data);
     }
 
     public Queue(IEnumerable<T> values)
@@ -24,7 +31,7 @@ public class Queue<T> : IEnumerable<T>
             Enqueue(item);
     }
 
-    private void SetFront(T data)
+    private void SetFrontAndBack(T data)
     {
         Front = Back = new Node<T>(data);
         Count = 1;
@@ -45,11 +52,15 @@ public class Queue<T> : IEnumerable<T>
         return current;
     }
 
+    /// <summary>
+    /// Add new element to queue
+    /// </summary>
+    /// <param name="data">Some data</param>
     public void Enqueue(T data)
     {
         if (Back is null)
         {
-            SetFront(data);
+            SetFrontAndBack(data);
             return;
         }
 
@@ -58,6 +69,11 @@ public class Queue<T> : IEnumerable<T>
         Count++;
     }
 
+    /// <summary>
+    /// Remove element from queue
+    /// </summary>
+    /// <param name="value"> return value </param>
+    /// <exception cref="NullReferenceException"></exception>
     public void Dequeue(out T value)
     {
         if (Front is null) throw new NullReferenceException("Queue is empty");
@@ -66,6 +82,10 @@ public class Queue<T> : IEnumerable<T>
         InternalDequeue();
     }
 
+    /// <summary>
+    /// Remove element from queue
+    /// </summary>
+    /// <exception cref="NullReferenceException"></exception>
     public void Dequeue()
     {
         if (Front is null) throw new NullReferenceException("Queue is empty");
@@ -79,13 +99,16 @@ public class Queue<T> : IEnumerable<T>
         Count--;
         if (Front is null) Back = null;
     }
-
+    /// <summary>
+    /// Return data from first element in queue
+    /// </summary>
+    /// <returns> first element data </returns>
+    /// <exception cref="NullReferenceException"></exception>
     public T Peek()
     {
         if (Front is null) throw new NullReferenceException("Queue is empty");
 
         return Front.Data;
-
     }
 
     public IEnumerator<T> GetEnumerator()
