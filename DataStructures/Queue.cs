@@ -78,7 +78,7 @@ public sealed class Queue<T> : IEnumerable<T>
     {
         if (Front is null) throw new NullReferenceException("Queue is empty");
 
-        value = Front.Data;
+        value = Peek();
         InternalDequeue();
     }
 

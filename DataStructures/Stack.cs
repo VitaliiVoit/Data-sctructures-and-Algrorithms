@@ -63,7 +63,7 @@ public sealed class Stack<T> : IEnumerable<T>
             return;
         }
 
-        Top = new Node<T>(data) { Next = Top };
+        Top = new Node<T>(data, Top);
         Count++;
     }
 
@@ -76,7 +76,7 @@ public sealed class Stack<T> : IEnumerable<T>
     {
         if (Top is null) throw new NullReferenceException("Stack is empty");
 
-        value = Top.Data;
+        value = Peek();
         InternalPop();
     }
 

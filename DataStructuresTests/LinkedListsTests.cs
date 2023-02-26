@@ -1,4 +1,5 @@
 ﻿using DataStructures.LinkedLists;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace DataStructuresTests;
 
@@ -37,7 +38,7 @@ public class SingleLinkedListTests
     public void RemoveTest(int data)
     {
         // Act
-        var result = list.Remove(data);
+        list.Remove(data);
         var contains = list.Contains(data);
 
         // Assert
@@ -48,13 +49,14 @@ public class SingleLinkedListTests
     public void RemoveFirstTest()
     {
         // Arrange
-        var firstData = list.Head?.Data;
+        var firstData = list.Head!.Data;
 
         // Act
-        var result = list.RemoveFirst();
+        list.RemoveFirst();
+        var contains = list.Contains(firstData);
 
         // Assert
-        Assert.That(result, Is.EqualTo(firstData));
+        Assert.That(contains, Is.False);
     }
 }
 
@@ -104,25 +106,27 @@ public class DoubleLinkedListTests
     public void RemoveFirstTest()
     {
         // Arrange
-        var firstData = list.Head?.Data;
+        var firstData = list.Head!.Data;
 
         // Act
-        var result = list.RemoveFirst();
+        list.RemoveFirst();
+        var result = list.Contains(firstData);
 
         // Assert
-        Assert.That(result, Is.EqualTo(firstData));
+        Assert.That(result, Is.False);
     }
 
     [Test]
     public void RemoveLastTest()
     {
         // Arrange
-        var lastData = list.Tail?.Data;
+        var lastData = list.Tail!.Data;
 
         // Act
-        var result = list.RemoveLast();
+        list.RemoveLast();
+        var result = list.Contains(lastData);
 
         // Assert
-        Assert.That(result, Is.EqualTo(lastData));
+        Assert.That(result, Is.False);
     }
 }

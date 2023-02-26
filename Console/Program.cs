@@ -2,10 +2,11 @@
 using DataStructures.LinkedLists;
 using DataStructures.Node;
 
-var doubleList = new DoubleLinkedList<int>(3);
-doubleList.AddAtEnd(1);
-doubleList.RemoveLast();
+var linkedList = new SingleLinkedList<int>(Enumerable.Range(1, 5));
+linkedList.Remove(5);
+linkedList.Remove(4);
+linkedList.Remove(3);
+linkedList.Remove(2);
+linkedList.Remove(1);
 
-
-Console.WriteLine(doubleList);
 Console.ReadLine();

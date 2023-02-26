@@ -76,33 +76,36 @@ public sealed class SingleLinkedList<T> : IEnumerable<T>
         return current;
     }
 
-    public T Remove(T data)
+    public void Remove(T data)
     {
         if (Head is null) throw new NullReferenceException("List is empty");
         if (!this.Contains(data)) throw new InvalidDataException("List doesn't have this element");
 
-        if (Head.Data.Equals(data)) return RemoveFirst();
+        if (Head.Data.Equals(data)) 
+        {
+            RemoveFirst();
+            return;
+        }
 
-        var current = Head;
-        while (current.Next is not null && !current.Next.Data.Equals(data))
+        var current = Head.Next;
+        var prev = Head;
+        while (current is not null && !current.Data.Equals(data))
+        {
+            prev = current;
             current = current.Next;
-        var removeNode = current.Next;
-        if (removeNode?.Next is null) Tail = current; // Change Tail element
-        current.Next = removeNode?.Next;
+        }
+        prev.Next = current?.Next;
+        if (current == Tail) Tail = prev; // Change Tail element
         Count--;
-        return removeNode!.Data;
     }
 
-    public T RemoveFirst()
+    public void RemoveFirst()
     {
         if (Head is null) throw new NullReferenceException("List is empty");
 
-        var removedData = Head.Data;
         Head = Head.Next;
         Count--;
         if (Head is null) Tail = Head;
-
-        return removedData;
     }
 
     public IEnumerator<T> GetEnumerator()
@@ -188,13 +191,13 @@ public sealed class DoubleLinkedList<T> : IEnumerable<T>
         Count++;
     }
 
-    public T Remove(T data)
+    public void Remove(T data)
     {
         if (Head is null || Tail is null) throw new NullReferenceException("List is empty");
-        if (!this.Contains(data)) throw new InvalidDataException("");
+        if (!this.Contains(data)) throw new InvalidDataException("Don`t have this data");
 
-        if (Head.Data.Equals(data)) return RemoveFirst();
-        if (Tail.Data.Equals(data)) return RemoveLast();
+        if (Head.Data.Equals(data)) { RemoveFirst(); return; }
+        if (Tail.Data.Equals(data)) { RemoveLast(); return; }
 
         var current = Head;
         while (current is not null && !current.Data.Equals(data))
@@ -203,35 +206,28 @@ public sealed class DoubleLinkedList<T> : IEnumerable<T>
         current!.Previous!.Next = current.Next;
         current!.Next!.Previous = current.Previous;
         Count--;
-
-        return current.Data;
     }
 
-    public T RemoveFirst()
+    public void RemoveFirst()
     {
         if (Head is null) throw new NullReferenceException("List is empty");
 
-        var removedData = Head.Data;
         Head = Head.Next;
         Count--;
 
         if (Head is not null) Head.Previous = null;
         if (Head is null) Tail = Head;
-        return removedData;
     }
 
-    public T RemoveLast()
+    public void RemoveLast()
     {
         if (Tail is null) throw new NullReferenceException("List is empty");
 
-        var removedData = Tail.Data;
         Tail = Tail.Previous;
         Count--;
 
         if (Tail is not null) Tail.Next = null;
         if (Tail is null) Head = Tail;
-
-        return removedData;
     }
 
     public IEnumerator<T> GetEnumerator()
